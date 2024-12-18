@@ -1,10 +1,20 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StatusBar, Dimensions, ImageBackground, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const { width, height } = Dimensions.get('window');
 
 function GradeLevelScreen({ navigation }) {
+  const handleGradeSelection = async (grade) => {
+    try {
+      await AsyncStorage.setItem('gradeLevel', grade); 
+      navigation.navigate('Drawer', { grade }); 
+    } catch (error) {
+      console.error('Error saving grade level:', error);
+    }
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: 'rgba(13, 124, 102,0.5)' }]}>
       <View style={styles.iconsContainer}>
@@ -13,14 +23,14 @@ function GradeLevelScreen({ navigation }) {
         <StatusBar style="auto" />
       </View>
       <View style={[styles.centerContainer, { marginTop: -45, gap: 10 }]}>
-        <Text style={{ fontWeight: 600, marginBottom: -10 }}>you are?</Text>
-        {['Elementary','High School'].map((grade) => (
+        <Text style={{ fontWeight: '600', marginBottom: -10 }}>you are?</Text>
+        {['Elementary', 'High School'].map((grade) => (
           <TouchableOpacity
             key={grade}
-            onPress={() => navigation.navigate('Drawer', { grade })}
+            onPress={() => handleGradeSelection(grade)}
             style={[styles.learnButton, { backgroundColor: '#0D7C66', borderWidth: 1, borderColor: 'rgba(65,179,162,50)' }]}
           >
-            <Text style={{ fontSize: 25, textAlign: 'center', color: 'white', fontWeight: 500 }}>
+            <Text style={{ fontSize: 25, textAlign: 'center', color: 'white', fontWeight: '500' }}>
               {grade}
             </Text>
           </TouchableOpacity>

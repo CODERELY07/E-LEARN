@@ -1,33 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, FlatList, TouchableOpacity } from 'react-native';
-import * as SQLite from 'expo-sqlite'; // Import SQLite
-import { useNavigation } from '@react-navigation/native'; // For navigation
-
+import * as SQLite from 'expo-sqlite'; 
+import { useNavigation } from '@react-navigation/native'; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function VideoListScreen() {
   const [videoList, setVideoList] = useState([]);
-  const navigation = useNavigation(); // Hook to navigate to the video player screen
+  const navigation = useNavigation();
+  const [gradeLevel, setGradeLevel] = useState('');
 
-  // Fetch videos from the database
-  const fetchVideos = async () => {
+  const fetchGradeLevel = async () => {
+    try {
+      const storedGrade = await AsyncStorage.getItem('gradeLevel');
+      if (storedGrade) {
+        setGradeLevel(storedGrade); 
+      } else {
+        console.log('No grade level found.');
+      }
+    } catch (error) {
+      console.error('Error retrieving grade level:', error);
+    }
+  };
+
+const fetchVideos = async () => {
     try {
       const db = await SQLite.openDatabaseAsync('mediaDB.db');
-      const result = await db.getAllAsync('SELECT * FROM media WHERE type = "video"');
-      setVideoList(result); // Store video URIs and types
+      const result = await db.getAllAsync(
+        'SELECT * FROM media WHERE type = "video" AND gradeLevel = ?', [gradeLevel]
+      );
+      setVideoList(result);
     } catch (e) {
       console.log(e);
     }
   };
 
   useEffect(() => {
-    fetchVideos(); // Fetch videos when the component mounts
+    fetchVideos(); 
   }, []);
 
-  // Navigate to the VideoPlayerScreen when a video is clicked
+  useEffect(() => {
+    if (gradeLevel) {
+      fetchVideos(); 
+    }
+  }, [gradeLevel]); 
+
   const handleVideoClick = (uri) => {
     navigation.navigate('VideoPlayer', { videoUri: uri });
   };
 
-  // Render each video item
+
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.videoItem} onPress={() => handleVideoClick(item.uri)}>
       <Text style={styles.videoTitle}>Video {item.id}</Text>

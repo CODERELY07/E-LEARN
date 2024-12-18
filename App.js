@@ -11,22 +11,21 @@ import ReadingScreen from './screens/ReadingScreen';
 import VideoScreen from './screens/VideoScreen';
 import VideoListScreen from './screens/VideoListScreen';
 import VideoPlayerScreen from './screens/VideoPlayerScreen';
-// Stack Navigation for FirstScreen and GradeLevelScreen
 const Stack = createNativeStackNavigator();
 
-// Drawer Navigation for HomeScreen, ReadingScreen, and VideoScreen
+
 const Drawer = createDrawerNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="VideoList">
+      <Stack.Navigator>
         <Stack.Screen options={{ headerShown: false }}  name="FirstScreen" component={FirstScreen} />
         <Stack.Screen options={{ headerShown: false }}  name="GradeLevel" component={GradeLevelScreen} />
         <Stack.Screen options={{ headerShown: false }}  name="Drawer" component={DrawerNavigation} />
         <Stack.Screen options={{ headerShown: false }}  name="Admin" component={AdminDrawer} />
         <Stack.Screen name="VideoList" component={VideoListScreen} />
-        <Stack.Screen name="VideoPlayer" component={VideoPlayerScreen} />
+        <Stack.Screen options={{headerShown: false}} name="VideoPlayer" component={VideoPlayerScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

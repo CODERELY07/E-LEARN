@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image, StatusBar } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styles/styles';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function HomeScreen({ navigation }) {
   const [gradeLevel, setGradeLevel] = useState('');
@@ -59,21 +60,24 @@ function HomeScreen({ navigation }) {
           </Text>
         ) : null}
       </View>
-      <View style={{ gap: 0, marginTop:-40 }}>
-        <TouchableOpacity onPress={() => navigation.navigate('ReadingScreen')} style={styles.ImageParentContainer}>
-          <View style={styles.imageContainer}>
-            <Image source={require('./../assets/reading-removebg-preview.png')} style={styles.homeImage} resizeMode="contain" />
-          </View>
-          <Text style={[styles.imageLabel, { fontWeight: 900 }]}>READING</Text>
-        </TouchableOpacity>
+      <ScrollView style={{ gap: 0, marginTop:-40 }}>
+        <>
+          <TouchableOpacity onPress={() => navigation.navigate('ReadingScreen')} style={styles.ImageParentContainer}>
+            <View style={styles.imageContainer}>
+              <Image source={require('./../assets/reading-removebg-preview.png')} style={styles.homeImage} resizeMode="contain" />
+            </View>
+            <Text style={[styles.imageLabel, { fontWeight: 900 }]}>READING</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('VideoScreen')} style={styles.ImageParentContainer}>
-          <View style={styles.imageContainer}>
-            <Image source={require('./../assets/watching-removebg-preview.png')} style={styles.homeImage} resizeMode="contain" />
-          </View>
-          <Text style={[styles.imageLabel, { fontWeight: 900, bottom: 95 }]}>WATCHING</Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity onPress={() => navigation.navigate('VideoScreen')} style={styles.ImageParentContainer}>
+            <View style={styles.imageContainer}>
+              <Image source={require('./../assets/watching-removebg-preview.png')} style={styles.homeImage} resizeMode="contain" />
+            </View>
+            <Text style={[styles.imageLabel, { fontWeight: 900, bottom: 95 }]}>WATCHING</Text>
+          </TouchableOpacity>
+        </>
+       
+      </ScrollView>
     </View>
   );
 }

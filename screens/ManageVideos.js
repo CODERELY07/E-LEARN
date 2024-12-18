@@ -118,7 +118,7 @@ export default function ManageVideos() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Upload New Video or Image</Text>
+        <Text style={styles.headerText}>Upload New Video </Text>
       </View>
 
       <Button title="Pick a video to upload" onPress={pickImage} color="#8E1A1A" />

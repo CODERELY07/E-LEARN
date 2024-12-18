@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     width: 180,
   },
   homeImage: {
+    height:470,
     width: '100%',
     marginTop:-150,
   },

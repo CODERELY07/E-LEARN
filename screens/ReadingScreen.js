@@ -54,7 +54,7 @@ function ReadingScreen({navigation}) {
             const result = await db.getAllAsync('SELECT DISTINCT subject FROM readings WHERE gradeLevel = ?', [gradeLevel]);
             const subjectsData = result.map(item => item.subject);
             const fetchedSubjects = await Promise.all(subjectsData.map(async (subject) => {
-              const topicsResult = await db.getAllAsync('SELECT title, short_description FROM readings WHERE subject = ? AND gradeLevel = ?', [subject, gradeLevel]);
+              const topicsResult = await db.getAllAsync('SELECT title, short_description, lesson FROM readings WHERE subject = ? AND gradeLevel = ?', [subject, gradeLevel]);
               return {
                 name: subject,
                 topics: topicsResult,

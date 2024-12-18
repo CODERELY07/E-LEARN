@@ -9,7 +9,7 @@ function LessonScreen({ route }) {
       <StatusBar style="auto" />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>{topic.title}</Text>
-        <Text style={styles.description}>{topic.short_description}</Text>
+        <Text style={styles.description}>{topic.lesson}</Text>
         <Text style={styles.lessonContent}>
           {topic.lesson_content} 
         </Text>

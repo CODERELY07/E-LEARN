@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, FlatList, Modal, StyleSheet } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function ManageReadingsScreen() {
   const [readingsList, setReadingsList] = useState([]);
@@ -115,72 +116,85 @@ export default function ManageReadingsScreen() {
   };
 
   const renderItem = ({ item }) => (
-    <View style={styles.readingItem}>
-      <Text style={styles.readingDetails}>
-        <Text style={styles.boldText}>Subject:</Text> {item.subject}
-      </Text>
-      <Text style={styles.readingDetails}>
-        <Text style={styles.boldText}>Title:</Text> {item.title}
-      </Text>
-      <Text style={styles.readingDetails}>
-        <Text style={styles.boldText}>Lesson:</Text> {item.lesson}
-      </Text>
-      <Text style={styles.readingDetails}>
-        <Text style={styles.boldText}>Description:</Text> {item.short_description}
-      </Text>
-      <Text style={styles.readingDetails}>
-        <Text style={styles.boldText}>Grade Level:</Text> {item.gradeLevel}
-      </Text>
+    <View style={[styles.readingItem, {height:300,marginTop:60}]}>
+      <ScrollView style={{marginBottom:20}} showsVerticalScrollIndicator={false}>
+        <Text style={styles.readingDetails}>
+          <Text style={styles.boldText}>Subject:</Text> {item.subject}
+        </Text>
+        <Text style={styles.readingDetails}>
+          <Text style={styles.boldText}>Title:</Text> {item.title}
+        </Text>
+        <Text style={styles.readingDetails}>
+          <Text style={styles.boldText}>Lesson:</Text> {item.lesson}
+        </Text>
+        <Text style={styles.readingDetails}>
+          <Text style={styles.boldText}>Description:</Text> {item.short_description}
+        </Text>
+        <Text style={styles.readingDetails}>
+          <Text style={styles.boldText}>Grade Level:</Text> {item.gradeLevel}
+        </Text>
+       
+      </ScrollView>
       <Button color="#8E1A1A" title="Edit" onPress={() => {
-        setEditingReadingId(item.id);
-        setEditSubject(item.subject);
-        setEditTitle(item.title);
-        setEditLesson(item.lesson);
-        setEditShortDescription(item.short_description);
-        setEditGradeLevel(item.gradeLevel);
-        setModalVisible(true);
-      }} />
+          setEditingReadingId(item.id);
+          setEditSubject(item.subject);
+          setEditTitle(item.title);
+          setEditLesson(item.lesson);
+          setEditShortDescription(item.short_description);
+          setEditGradeLevel(item.gradeLevel);
+          setModalVisible(true);
+        }} />
       <Button title="Delete" color="#8E1A1A" onPress={() => deleteReading(item.id)} />
     </View>
   );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Manage Readings</Text>
+       <Text style={styles.title}>Manage Readings</Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Subject"
-        value={subject}
-        onChangeText={setSubject}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Title"
-        value={title}
-        onChangeText={setTitle}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Lesson"
-        value={lesson}
-        onChangeText={setLesson}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Short Description"
-        value={shortDescription}
-        onChangeText={setShortDescription}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Grade Level"
-        value={gradeLevel}
-        onChangeText={setGradeLevel}
-      />
+      <ScrollView showsVerticalScrollIndicator={false} style={{height:200}}>
+       
+        <TextInput
+          style={[styles.input, { height: 100, marginBottom:30}]} 
+          placeholder="Enter Subject"
+          value={subject}
+          onChangeText={setSubject}
+          multiline={true}
+        />
+        <TextInput
+          style={[styles.input, { height: 100, marginBottom:30}]} 
+          placeholder="Enter Title"
+          value={title}
+          onChangeText={setTitle}
+          multiline={true}
+        />
+        <TextInput
+          style={[styles.input, { height: 100, marginBottom:30}]} 
+          placeholder="Enter Lesson"
+          value={lesson}
+          onChangeText={setLesson}
+          multiline={true}
+        />
+        <TextInput
+          style={[styles.input, { height: 100, marginBottom:30}]} 
+          placeholder="Enter Short Description"
+          value={shortDescription}
+          onChangeText={setShortDescription}
+          multiline={true}
+        />
+        <TextInput
+          style={[styles.input, { height: 100, marginBottom:30}]} 
+          placeholder="Enter Grade Level"
+          value={gradeLevel}
+          onChangeText={setGradeLevel}
+          multiline={true}
+        />
+      </ScrollView>
+
       <Button color="#8E1A1A" title="Save Reading" onPress={saveReading} />
-
+   
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={readingsList}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
@@ -193,36 +207,43 @@ export default function ManageReadingsScreen() {
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalView}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <TextInput
-            style={styles.input}
+           style={[styles.input, {width:300, height: 100 }]} 
+           multiline={true}
             placeholder="Edit Subject"
             value={editSubject}
             onChangeText={setEditSubject}
           />
           <TextInput
-            style={styles.input}
+            style={[styles.input, {width:300, height: 100 }]} 
+            multiline={true}
             placeholder="Edit Title"
             value={editTitle}
             onChangeText={setEditTitle}
           />
           <TextInput
-            style={styles.input}
+            style={[styles.input, {width:300, height: 100 }]} 
+            multiline={true}
             placeholder="Edit Lesson"
             value={editLesson}
             onChangeText={setEditLesson}
           />
           <TextInput
-            style={styles.input}
+            style={[styles.input, {width:300, height: 100 }]} 
+            multiline={true}
             placeholder="Edit Short Description"
             value={editShortDescription}
             onChangeText={setEditShortDescription}
           />
           <TextInput
-            style={styles.input}
+            style={[styles.input, {width:300, height: 100 }]} 
+            multiline={true}
             placeholder="Edit Grade Level"
             value={editGradeLevel}
             onChangeText={setEditGradeLevel}
           />
+          </ScrollView>
           <Button color="#8E1A1A" title="Save Changes" onPress={() => editReading(editingReadingId)} />
             <Text></Text>
           <Button color="#8E1A1A" title="Cancel" onPress={() => setModalVisible(false)} />

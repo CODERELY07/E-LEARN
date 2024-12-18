@@ -24,7 +24,7 @@ function FirstScreen({ navigation }) {
             <Image style={{ width: 50, height: 50 }} source={require('./../assets/bulb-removebg.png')} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity  onPress={() => { navigation.navigate('Admin'); }} style={styles.learnButton} >
+        <TouchableOpacity  onPress={() => { navigation.navigate('LoginScreen'); }} style={styles.learnButton} >
           <Text style={{ fontSize: 32, textAlign: 'center', color: 'white', fontWeight: 900 ,paddingVertical:5}}>Manage</Text>
         </TouchableOpacity>
       </View>

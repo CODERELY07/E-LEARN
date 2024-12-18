@@ -9,8 +9,10 @@ import GradeLevelScreen from './screens/GradeLevelScreen';
 import HomeScreen from './screens/HomeScreen';
 import ReadingScreen from './screens/ReadingScreen';
 import VideoScreen from './screens/VideoScreen';
+import LoginScreen from './screens/LoginScreen';
 import VideoListScreen from './screens/VideoListScreen';
 import VideoPlayerScreen from './screens/VideoPlayerScreen';
+import LessonScreen from './screens/LessonScreen';
 const Stack = createNativeStackNavigator();
 
 
@@ -26,6 +28,8 @@ const App = () => {
         <Stack.Screen options={{ headerShown: false }}  name="Admin" component={AdminDrawer} />
         <Stack.Screen name="VideoList" component={VideoListScreen} />
         <Stack.Screen options={{headerShown: false}} name="VideoPlayer" component={VideoPlayerScreen} />
+        <Stack.Screen  options={{headerShown: false}} name="LessonScreen" component={LessonScreen} />
+        <Stack.Screen  options={{headerShown: false}} name="LoginScreen" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
